@@ -42,6 +42,9 @@ clear
 # Disable output
 exec 1>/dev/null 2>/dev/null
 
+# Kill Process using that port
+sudo fuser -k 3128/tcp
+
 # Info
 PRINT_GOOD "Setting up NTLM to Proxy"
 HIGHLIGHT

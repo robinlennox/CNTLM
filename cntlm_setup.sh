@@ -73,6 +73,7 @@ PRINT_GOOD "Proxy IP - $PROXY_IP"
 PRINT_GOOD "Proxy Port - $PROXY_PORT"
 
 #Backup CNTLM Config
+sudo cp /etc/cntlm.conf_orig /etc/cntlm.conf
 sudo cp /etc/cntlm.conf /etc/cntlm.conf_orig
 
 #Update CNTLM Config file

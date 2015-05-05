@@ -42,6 +42,14 @@ clear
 # Disable output
 exec 1>/dev/null 2>/dev/null
 
+# Check CNTLM is Installed
+dpkg -s cntlm 2>&1 | grep -o Installed-Size
+if [ $? != 0 ] ; then
+	PRINT_ERROR "CNTLM not Installed"
+	PRINT_ERROR "Try - sudo apt-get install cntlm"
+	exit 0
+fi
+
 # Kill Process using that port
 sudo fuser -k 3128/tcp
 

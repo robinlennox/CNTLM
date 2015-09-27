@@ -36,6 +36,12 @@ PRINT_QUESTION(){
 	echo -n "`tput bold``tput setf 6`[*]`tput sgr0` $1"
 	exec 1>/dev/null 2>/dev/null
 }
+
+DISABLE_LOGGING () {
+	echo "# Suppress CNTLM info messages \nif $programname == 'cntlm' and $syslogseverity > '6' then ~" | sudo tee -a /etc/rsyslog.d/00-cntlm.conf
+	sudo service rsyslog restart
+}
+
 # Clear Screen
 clear
 
@@ -141,5 +147,16 @@ if [ $? != 0 ] ; then
 http-proxy-port=3128" >> /etc/subversion/servers
 
 fi
+
+# Disable logging all websites visited in syslog
+while true; do
+	PRINT_QUESTION "Do you want to disable CNTLM logging for all sites visited?"
+	read -p "" yn
+	case $yn in
+		[Yy]* ) DISABLE_LOGGING; break;;
+		[Nn]* ) PRINT_MESSAGE  "Logging not disabled";break;;
+		* ) PRINT_ERROR  "Please answer yes or no.";;
+	esac
+done
 
 PRINT_MESSAGE "Logout to take affect"

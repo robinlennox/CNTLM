@@ -42,6 +42,15 @@ DISABLE_LOGGING () {
 	sudo service rsyslog restart
 }
 
+ENABLE_PROXY_GLOBAL () {
+	#Add to /etc/environment
+	#http://askubuntu.com/questions/150210/how-do-i-set-systemwide-proxy-servers-in-xubuntu-lubuntu-or-ubuntu-studio
+	echo "http_proxy=http://localhost:3128
+	ftp_proxy=http://localhost:3128
+	https_proxy=http://localhost:3128
+	no_proxy="127.0.0.0/8,localhost"" | sudo tee -a /etc/environment
+}
+
 # Clear Screen
 clear
 
@@ -126,13 +135,6 @@ echo "export http_proxy=http://localhost:3128
 export ftp_proxy=http://localhost:3128
 export https_proxy=http://localhost:3128" >> ~/.bashrc
 
-#Add to /etc/environment
-#http://askubuntu.com/questions/150210/how-do-i-set-systemwide-proxy-servers-in-xubuntu-lubuntu-or-ubuntu-studio
-echo "http_proxy=http://localhost:3128
-ftp_proxy=http://localhost:3128
-https_proxy=http://localhost:3128
-no_proxy="127.0.0.0/8,localhost"" | sudo tee -a /etc/environment
-
 # Restart service
 sudo service cntlm restart
 
@@ -147,6 +149,17 @@ if [ $? != 0 ] ; then
 http-proxy-port=3128" >> /etc/subversion/servers
 
 fi
+
+# Enable CNTLM globally
+while true; do
+	PRINT_QUESTION "Do you want to enable CNTLM globally for all user and applications? [Default y]"
+	read -p "" yn
+	case $yn in
+		[Yy]* ) ENABLE_PROXY_GLOBAL; break;;
+		[Nn]* ) PRINT_MESSAGE  "CNTLM not enabled globally";break;;
+		* ) PRINT_ERROR  "Please answer yes or no.";;
+	esac
+done
 
 # Disable logging all websites visited in syslog
 while true; do

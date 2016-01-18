@@ -173,3 +173,4 @@ while true; do
 done
 
 PRINT_MESSAGE "Logout to take affect"
+PRINT_MESSAGE "Alternately: Run the following command in terminal: export http_proxy=http://localhost:3128"

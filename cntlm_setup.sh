@@ -38,7 +38,8 @@ PRINT_QUESTION(){
 }
 
 DISABLE_LOGGING () {
-	echo "# Suppress CNTLM info messages \nif \$programname == 'cntlm' then stop" | sudo tee -a /etc/rsyslog.d/00-cntlm.conf
+	echo "# Suppress CNTLM info messages" | sudo tee -a /etc/rsyslog.d/00-cntlm.conf
+	echo "if \$programname == 'cntlm' then stop" | sudo tee -a /etc/rsyslog.d/00-cntlm.conf
 	sudo service rsyslog restart
 }
 

@@ -72,7 +72,24 @@ sudo fuser -k 3128/tcp
 # Info
 PRINT_GOOD "Setting up NTLM to Proxy"
 HIGHLIGHT
-SPACE
+
+# Proxy Details
+PRINT_MESSAGE "Proxy Details"
+PRINT_QUESTION "Enter Proxy Hostname/IP [ENTER]: "
+read PROXY_IP
+PRINT_QUESTION "Enter Proxy Port [ENTER]: "
+read PROXY_PORT
+
+# Check Proxy is valid
+PROXYSRV_CHECK=$(echo | timeout 5 telnet ${PROXY_IP} ${PROXY_PORT} | grep -o "Connected")
+
+if [ -z "$PROXYSRV_CHECK" ]; then
+	PRINT_ERROR "Unabled to connect to proxy ${PROXY_IP}:${PROXY_PORT}"
+	exit 0
+else
+	PRINT_GOOD "Proxy Server Vaild!"
+fi
+HIGHLIGHT
 
 # read domain details
 PRINT_QUESTION "Enter Username [ENTER]: "
@@ -81,13 +98,6 @@ PRINT_QUESTION "Enter Domain Name [ENTER]: "
 read DOMAIN
 PRINT_QUESTION "Enter Domain Password [ENTER]: "
 NTLMV2_HASH=$(/usr/sbin/cntlm -u $USERNAME -d $DOMAIN -f -H | tail -1 |  awk '{print $2}' )
-SPACE
-HIGHLIGHT
-PRINT_MESSAGE "Proxy Details"
-PRINT_QUESTION "Enter Proxy Hostname/IP [ENTER]: "
-read PROXY_IP
-PRINT_QUESTION "Enter Proxy Port [ENTER]: "
-read PROXY_PORT
 SPACE
 
 # Display back Domain Creds

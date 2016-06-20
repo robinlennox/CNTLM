@@ -89,7 +89,7 @@ if [ -z "$PROXYSRV_CHECK" ]; then
 	PRINT_ERROR "Unabled to connect to proxy ${PROXY_IP}:${PROXY_PORT}"
 	exit 0
 else
-	PRINT_GOOD "Proxy Server Vaild!"
+	PRINT_GOOD "Proxy Server Valid!"
 fi
 HIGHLIGHT
 

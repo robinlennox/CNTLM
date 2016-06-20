@@ -157,7 +157,6 @@ sudo sed -i "/Defaults\senv_reset/ { s/Defaults\senv_reset/\nDefaults        env
 # Add Proxy for SVN
 dpkg -s svn 2>&1 | grep -o Installed-Size
 if [ $? != 0 ] ; then
-	echo "Setting up Proxy for SVN"
 	sudo echo "http-proxy-host=localhost
 http-proxy-port=3128" >> /etc/subversion/servers
 

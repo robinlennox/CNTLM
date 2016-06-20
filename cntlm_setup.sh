@@ -174,7 +174,7 @@ done
 
 # Disable logging all websites visited in syslog
 while true; do
-	PRINT_QUESTION "Do you want to disable CNTLM logging for all sites visited?"
+	PRINT_QUESTION "Do you want to disable CNTLM logging for all sites visited? [Default y]"
 	read -p "" yn
 	case $yn in
 		[Yy]* ) DISABLE_LOGGING; break;;

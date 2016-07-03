@@ -76,7 +76,7 @@ SETUP_NEW_SETTINGS() {
 	PROXYSRV_CHECK=$(echo | timeout 5 telnet ${PROXY_IP} ${PROXY_PORT} | grep -o "Connected")
 
 	if [ -z "$PROXYSRV_CHECK" ]; then
-		PRINT_ERROR "Unabled to connect to proxy ${PROXY_IP}:${PROXY_PORT}"
+		PRINT_ERROR "Unable to connect to proxy ${PROXY_IP}:${PROXY_PORT}"
 		exit 0
 	else
 		PRINT_GOOD "Proxy Server Valid!"

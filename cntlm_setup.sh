@@ -225,7 +225,7 @@ if [ -n "${EXISTING_CONFIG_CHECK}"]; then
 		PRINT_QUESTION "Do you want to use the existing settings and only change the password? [Default y]"
 		read -p "" yn
 		case $yn in
-			[Yy]* ) CLEAR;ENABLE_PROXY_GLOBAL; break;;
+			[Yy]* ) CLEAR;APPLY_SETTINGS; break;;
 			[Nn]* ) CLEAR;SETUP_NEW_SETTINGS;break;;
 			* ) PRINT_ERROR  "Please answer yes or no.";;
 		esac

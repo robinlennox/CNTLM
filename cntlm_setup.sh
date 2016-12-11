@@ -225,15 +225,11 @@ if [ -n "${EXISTING_CONFIG_CHECK}"]; then
 		PRINT_QUESTION "Do you want to use the existing settings and only change the password? [Default y]"
 		read -p "" yn
 		case $yn in
-			[Yy]* ) CLEAR;APPLY_SETTINGS; break;;
+			[Yy]* ) CLEAR;PRINT_QUESTION "Enter Domain Password [ENTER]: ";NTLMV2_HASH=$(/usr/sbin/cntlm -u $USERNAME -d $DOMAIN -f -H | tail -1 |  awk '{print $2}' );SPACE;APPLY_SETTINGS; break;;
 			[Nn]* ) CLEAR;SETUP_NEW_SETTINGS;break;;
 			* ) PRINT_ERROR  "Please answer yes or no.";;
 		esac
 	done
-	PRINT_QUESTION "Enter Domain Password [ENTER]: "
-	NTLMV2_HASH=$(/usr/sbin/cntlm -u $USERNAME -d $DOMAIN -f -H | tail -1 |  awk '{print $2}' )
-	SPACE
-	APPLY_SETTINGS
 else
 	SETUP_NEW_SETTINGS
 	APPLY_SETTINGS

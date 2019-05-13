@@ -226,7 +226,7 @@ if [ -n "${EXISTING_CONFIG_CHECK}"]; then
 		read -p "" yn
 		case $yn in
 			[Yy]* ) CLEAR;PRINT_QUESTION "Enter Domain Password [ENTER]: ";NTLMV2_HASH=$(/usr/sbin/cntlm -u $USERNAME -d $DOMAIN -f -H | tail -1 |  awk '{print $2}' );SPACE;APPLY_SETTINGS; break;;
-			[Nn]* ) CLEAR;SETUP_NEW_SETTINGS;break;;
+			[Nn]* ) CLEAR;SETUP_NEW_SETTINGS;APPLY_SETTINGS;break;;
 			* ) PRINT_ERROR  "Please answer yes or no.";;
 		esac
 	done
